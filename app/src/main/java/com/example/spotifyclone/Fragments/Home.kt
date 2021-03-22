@@ -1,18 +1,25 @@
 package com.example.spotifyclone.Fragments
 
+import android.content.Intent
+import android.net.sip.SipSession
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spotifyclone.Model.*
 import com.example.spotifyclone.R
+import com.example.spotifyclone.databinding.ActivityDetalhesBinding.inflate
+import com.example.spotifyclone.detalhes
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.album_item.view.*
 import kotlinx.android.synthetic.main.categoria_item.view.*
+import kotlinx.android.synthetic.main.fragment_artistas.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +36,6 @@ class Home : Fragment() {
             val argumentos = Bundle()
             fragmentHome.arguments = argumentos
             return fragmentHome
-
 
         }
     }
@@ -85,24 +91,30 @@ class Home : Fragment() {
         }
     }
 
-    private inner class CategoriaHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(categoria: Categoria) {
+    private inner class CategoriaHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        fun bind(categoria: Categoria){
             itemView.text_titulo_categoria.text = categoria.titulo
-            itemView.recycler_listagem_albuns.adapter = AlbunsAdapter(categoria.albuns)
-            itemView.recycler_listagem_albuns.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            itemView.recycler_listagem_albuns.adapter = AlbunsAdapter(categoria.albuns){album ->
 
+                val intent = Intent(context,detalhes::class.java)
+                intent.putExtra("album",album.album)
+                intent.putExtra("titulos", titulos[album.id])
+                startActivity(intent)
+
+            }
+            itemView.recycler_listagem_albuns.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
         }
     }
 
 
     //========================= Albuns Horizontal ================================
 
-    private inner class AlbunsAdapter(private val albuns: List<Album>): RecyclerView.Adapter<AlbunsHolder>() {
+    private inner class AlbunsAdapter(private val albuns: List<Album>, private val listener: ((Album) -> Unit)?): RecyclerView.Adapter<AlbunsHolder>() {
 
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbunsHolder {
-            return AlbunsHolder(layoutInflater.inflate(R.layout.album_item, parent, false))
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbunsHolder = AlbunsHolder(
+            layoutInflater.inflate(R.layout.album_item,parent,false),listener)
+
 
         override fun onBindViewHolder(holder: AlbunsHolder, position: Int) {
             val album = albuns[position]
@@ -114,8 +126,11 @@ class Home : Fragment() {
         }
     }
 
-    private class AlbunsHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    private class AlbunsHolder(itemView: View, val onClick: ((Album) -> Unit)?): RecyclerView.ViewHolder(itemView){
         fun bind(album: Album){
             Picasso.get().load(album.album).placeholder(R.drawable.placeholder).fit().into(itemView.image_album)
+            itemView.image_album.setOnClickListener {
+                onClick?.invoke(album)
+            }
     }
 }
