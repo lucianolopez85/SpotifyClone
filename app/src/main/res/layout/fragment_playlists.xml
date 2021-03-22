@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FragmentsTab.Playlists"
+    android:background="@color/black">
+
+    <TextView
+        android:id="@+id/text_titulo_playlist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Crie sua primeira Playlist"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="220dp"
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/text_descricao_playlist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="É fácil, vamos te ajudar."
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/text_titulo_playlist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+
+
+
+        />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Criar Playlist"
+        app:layout_constraintTop_toBottomOf="@id/text_descricao_playlist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:backgroundTint="@color/white"
+        app:cornerRadius="32dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

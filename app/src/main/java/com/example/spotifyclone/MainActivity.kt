@@ -6,8 +6,9 @@ import android.widget.FrameLayout
 import androidx.core.internal.view.SupportMenu
 import androidx.core.internal.view.SupportMenuItem
 import androidx.fragment.app.Fragment
+import com.app.spotifyclone.Fragments.Buscar
 import com.example.spotifyclone.Fragments.Biblioteca
-import com.example.spotifyclone.Fragments.Buscar
+
 import com.example.spotifyclone.Fragments.Home
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
